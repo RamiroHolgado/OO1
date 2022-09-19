@@ -1,0 +1,14 @@
+1)
+	aportes() de la clase Gerente.
+	montoBasico() de la clase Gerente.
+	
+	sueldoBasico() de la clase EmpleadoJerarquico.
+	sueldoBasico() de la clase Empleado.
+	montoBasico() de la clase Empleado.
+	aportes() de la clase Gerente.
+	bonoPorCategoria() de la clase EmpleadoJerarquico.
+	
+	
+2)
+	aportesDeAlan = 2850
+	sueldoBasicoDeAlan = 67850
