@@ -1,11 +1,9 @@
-package ar.edu.unlp.info.oo1.ejercicio14_intervaloDeTiempo;
+package ar.edu.unlp.info.oo1.ejercicio15_alquilerDePropiedades;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-import ar.edu.unlp.info.oo1.ej3.Date;
-
-public class DateLapse implements Date{
+public class DateLapse {
 	private LocalDate from;
 	private LocalDate to;
 	
@@ -28,6 +26,10 @@ public class DateLapse implements Date{
 	
 	public boolean includesDate(LocalDate d) {
 		return (this.from.isBefore(d) && this.to.isAfter(d));	
+	}
+	
+	public boolean overlaps(DateLapse d) {
+		return includesDate(d.getTo()) || includesDate(d.getFrom());
 	}
 	
 }
