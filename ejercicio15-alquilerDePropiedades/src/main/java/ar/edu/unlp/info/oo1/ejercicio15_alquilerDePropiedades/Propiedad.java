@@ -7,17 +7,15 @@ import java.util.List;
 public class Propiedad {
 	private String nombre;
 	private String descripcion;
-	private double precioXnoche;
 	private String direccion;
-	private Usuario propietario;
+	private double precioXnoche;
 	private List<Reserva> reservas;
 
-	public Propiedad(String nombre, String descripcion, double precioXnoche, String direccion, Usuario propietario) {
+	public Propiedad(String nombre, String descripcion, String direccion, double precioXnoche) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.precioXnoche = precioXnoche;
 		this.direccion = direccion;
-		this.propietario = propietario;
+		this.precioXnoche = precioXnoche;
 		this.reservas = new ArrayList<Reserva>();
 	}
 
@@ -29,16 +27,12 @@ public class Propiedad {
 		return descripcion;
 	}
 
-	public double getPrecioXnoche() {
-		return precioXnoche;
-	}
-
 	public String getDireccion() {
 		return direccion;
 	}
 
-	public Usuario getPropietario() {
-		return propietario;
+	public double getPrecioXnoche() {
+		return precioXnoche;
 	}
 
 	public List<Reserva> getReservas() {
@@ -49,13 +43,17 @@ public class Propiedad {
 		this.reservas.add(r);
 	}
 
+	public void eliminarReserva(Reserva r) {
+		if (r.getPeriodo().getFrom().isAfter(LocalDate.now()))
+			this.reservas.remove(r);
+	}
+
 	public boolean estaDisponible(DateLapse dl) {
 		return this.reservas.stream().noneMatch(r -> r.getPeriodo().overlaps(dl));
 	}
 
-	public double ingresosPorReservas(LocalDate f1, LocalDate f2) {
-		return this.reservas.stream().filter(r -> r.getPeriodo().getFrom().isBefore(f2) && r.getPeriodo().getTo().isAfter(f1))
-				.mapToDouble(r -> r.calcularPrecio()).sum();
+	public double calcularIngresos(DateLapse dl) {
+		return this.getReservas().stream().filter(r -> r.getPeriodo().overlaps(dl)).mapToDouble(r -> r.calcularPrecio())
+				.sum();
 	}
-
 }

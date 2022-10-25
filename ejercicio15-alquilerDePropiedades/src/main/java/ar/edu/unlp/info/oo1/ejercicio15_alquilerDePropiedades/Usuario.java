@@ -8,7 +8,7 @@ public class Usuario {
 	private int dni;
 	private ArrayList<Propiedad> enAlquiler;
 	private ArrayList<Reserva> reservas;
-	
+
 	public Usuario(String nombre, String direccion, int dni) {
 		this.nombre = nombre;
 		this.direccion = direccion;
@@ -36,13 +36,24 @@ public class Usuario {
 	public ArrayList<Reserva> getReservas() {
 		return reservas;
 	}
-	
+
 	public void agregarPropiedad(Propiedad p) {
 		this.enAlquiler.add(p);
 	}
-	
+
+	public void eliminarPropiedad(Propiedad p) {
+		this.enAlquiler.remove(p);
+	}
+
 	public void agregarReserva(Reserva r) {
 		this.reservas.add(r);
 	}
-		
+
+	public void eliminarReserva(Reserva r) {
+		this.reservas.remove(r);
+	}
+
+	public double calcularIngresos(DateLapse dl) {
+		return this.getEnAlquiler().stream().mapToDouble(p -> p.calcularIngresos(dl)).sum();
+	}
 }
